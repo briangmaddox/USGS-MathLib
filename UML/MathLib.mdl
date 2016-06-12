@@ -1,0 +1,888 @@
+
+(object Petal
+    version    	42
+    _written   	"Microsoft Visual Modeler 2.0.8139"
+    charSet    	0)
+
+(object Design "Logical View"
+    is_unit    	TRUE
+    is_loaded  	TRUE
+    defaults   	(object defaults
+	rightMargin 	0.250000
+	leftMargin 	0.250000
+	topMargin  	0.250000
+	bottomMargin 	0.500000
+	pageOverlap 	0.250000
+	clipIconLabels 	TRUE
+	autoResize 	TRUE
+	snapToGrid 	TRUE
+	gridX      	16
+	gridY      	16
+	defaultFont 	(object Font
+	    size       	9
+	    face       	"Tahoma"
+	    bold       	FALSE
+	    italics    	FALSE
+	    underline  	FALSE
+	    strike     	FALSE
+	    color      	0
+	    default_color 	TRUE)
+	showMessageNum 	3
+	showClassOfObject 	TRUE
+	notation   	"Unified")
+    root_usecase_package 	(object Class_Category "Use Case View"
+	quid       	"38CD9B680034"
+	exportControl 	"Public"
+	global     	TRUE
+	logical_models 	(list unit_reference_list)
+	logical_presentations 	(list unit_reference_list
+	    (object UseCaseDiagram "Main"
+		quid       	"38CD9B6A0162"
+		title      	"Main"
+		zoom       	100
+		max_height 	28350
+		max_width  	21600
+		origin_x   	0
+		origin_y   	0
+		items      	(list diagram_item_list))))
+    root_category 	(object Class_Category "Logical View"
+	quid       	"38CD9B680033"
+	exportControl 	"Public"
+	global     	TRUE
+	subsystem  	"Component View"
+	quidu      	"38CD9B680035"
+	logical_models 	(list unit_reference_list
+	    (object Class_Category "User Interface"
+		attributes 	(list Attribute_Set
+		    (object Attribute
+			tool       	"VisualBasic"
+			name       	"TierPackage"
+			value      	"User Services"))
+		quid       	"38CD9B6A017F"
+		documentation 	"These services provide the user with an interface into the library.  The objects here represent the various interpolation methods available.  All of these classes are available to the user."
+		visible_categories 	(list visibility_relationship_list
+		    (object Visibility_Relationship
+			attributes 	(list Attribute_Set
+			    (object Attribute
+				tool       	"VisualBasic"
+				name       	"TierPackage"
+				value      	"Business Services"))
+			quid       	"38CD9B6A0185"
+			supplier   	"Logical View::Internal Systems"
+			quidu      	"38CD9B6A0181")
+		    (object Visibility_Relationship
+			attributes 	(list Attribute_Set
+			    (object Attribute
+				tool       	"VisualBasic"
+				name       	"TierPackage"
+				value      	"Data Services"))
+			quid       	"38CD9B6A0186"
+			supplier   	"Logical View::Data Services"
+			quidu      	"38CD9B6A0183"))
+		exportControl 	"Public"
+		logical_models 	(list unit_reference_list
+		    (object Class "Interpolator"
+			quid       	"38CDA8AC00F3"
+			documentation 	"This is the base interpolation class. It provides the basic interface that all other interpolators must follow.  Several methods here must be  implemented in the child classes."
+			operations 	(list Operations
+			    (object Operation "getNumberPoints"
+				quid       	"38CDA8AC01EE"
+				documentation 	"Returns the number (degree) of the interpolator"
+				result     	"long int"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "getXVector"
+				quid       	"38CDA8AC0220"
+				documentation 	"Returns a copy of the interpolator's internal x vector.  If an error occurs, will return false."
+				parameters 	(list Parameters
+				    (object Parameter "inx"
+					type       	"std::vector<double>"))
+				result     	"bool"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "getYVector"
+				quid       	"38CDA8AC02A2"
+				documentation 	"Returns a copy of the object's y vector"
+				parameters 	(list Parameters
+				    (object Parameter "iny"
+					type       	"std::vector<double>"))
+				result     	"bool"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "interpolatePoint"
+				quid       	"38CDA8AC032E"
+				documentation 	"This virtual function must be overridden in all child classes.  It will take the input point and attempt to interpolate it.  It will fail if the object is in an invalid state.  An exception will be thrown on error."
+				parameters 	(list Parameters
+				    (object Parameter "inx"
+					type       	"const double&"))
+				result     	"double"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "Interpolator"
+				quid       	"38CDA8AC03B0"
+				documentation 	
+|Default constructor.  Simply sets numpoints to 0
+|
+				
+				result     	"void"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "Interpolator"
+				quid       	"38CDA8AC03E3"
+				documentation 	"This constructor takes performs a deep copy of the input Interpolator."
+				parameters 	(list Parameters
+				    (object Parameter "interp"
+					type       	"const Interpolator&"))
+				result     	"void"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "isValid"
+				quid       	"38CDA8AD0087"
+				documentation 	"Returns the state of the object.  true if everything is ok, false otherwise."
+				result     	"bool"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "operator!="
+				quid       	"38CDA8AD013B"
+				documentation 	"Override of the default operator"
+				parameters 	(list Parameters
+				    (object Parameter "rhs"
+					type       	"const Interpolator&"))
+				result     	"bool"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "operator=="
+				quid       	"38CDA8AD01D1"
+				documentation 	"Override of the default equality operator"
+				parameters 	(list Parameters
+				    (object Parameter "rhs"
+					type       	"const Interpolator&"))
+				result     	"bool"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "setNumberPoints"
+				quid       	"38CDA8AD025D"
+				documentation 	"Allows the user to set the number of points."
+				parameters 	(list Parameters
+				    (object Parameter "num"
+					type       	"const long int&"))
+				result     	"void"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "setXYVectors"
+				quid       	"38CDA8AD0308"
+				documentation 	
+|Sets the internal "x&y" vectors.  The input vectors MUST be the same size or this method will fail.
+				
+				parameters 	(list Parameters
+				    (object Parameter "inx"
+					type       	"const std::vector<double>&")
+				    (object Parameter "iny"
+					type       	"const std::vector<double>&"))
+				result     	"bool"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0))
+			class_attributes 	(list class_attribute_list
+			    (object ClassAttribute "_x"
+				quid       	"38CDA8AC0126"
+				documentation 	"Standard x value array"
+				type       	"void"
+				exportControl 	"Public")
+			    (object ClassAttribute "_y"
+				quid       	"38CDA8AC0158"
+				documentation 	
+|Default y array
+|
+				
+				type       	"void"
+				exportControl 	"Public")
+			    (object ClassAttribute "numpoints"
+				quid       	"38CDA8AC0194"
+				documentation 	"Number of points to be used in the interpolator"
+				type       	"void"
+				initv      	"0"
+				exportControl 	"Public")))
+		    (object Class "PolynomialInterpolator"
+			quid       	"38CDAC72003E"
+			documentation 	"This class performs a polynomial interpolation of a point.  It has to have the internal x and y vectors set for it to work.  "
+			superclasses 	(list inheritance_relationship_list
+			    (object Inheritance_Relationship
+				quid       	"38CDAC72007A"
+				supplier   	"Logical View::User Interface::Interpolator"
+				quidu      	"38CDA8AC00F3"))
+			operations 	(list Operations
+			    (object Operation "getError"
+				quid       	"38CE42CE006D"
+				documentation 	"This function returns the error associated with the previous operation.  If no interpolation has been performed, it will return 0.0."
+				result     	"double"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0))
+			class_attributes 	(list class_attribute_list
+			    (object ClassAttribute "lasterror"
+				quid       	"38CDAC7200A2"
+				documentation 	"Returns the differential error on the last operation"
+				type       	"void"
+				initv      	"0"
+				exportControl 	"Public"))))
+		logical_presentations 	(list unit_reference_list
+		    (object ClassDiagram "Package Overview"
+			quid       	"38CD9B6A0180"
+			title      	"Package Overview"
+			zoom       	100
+			max_height 	28350
+			max_width  	21600
+			origin_x   	0
+			origin_y   	0
+			items      	(list diagram_item_list
+			    (object ClassView "Class" "Logical View::User Interface::Interpolator" @1
+				ShowCompartmentStereotypes 	TRUE
+				IncludeAttribute 	TRUE
+				IncludeOperation 	TRUE
+				location   	(272, 384)
+				label      	(object ItemLabel
+				    Parent_View 	@1
+				    location   	(66, 5)
+				    nlines     	1
+				    max_width  	412
+				    justify    	0
+				    label      	"Interpolator")
+				icon_style 	"Icon"
+				quidu      	"38CDA8AC00F3"
+				compartment 	(object Compartment
+				    Parent_View 	@1
+				    location   	(66, 59)
+				    icon_style 	"Icon"
+				    anchor     	2
+				    nlines     	15
+				    max_width  	418)
+				width      	430
+				height     	780
+				annotation 	8
+				autoResize 	TRUE)
+			    (object ClassView "Class" "Logical View::User Interface::PolynomialInterpolator" @2
+				ShowCompartmentStereotypes 	TRUE
+				IncludeAttribute 	TRUE
+				IncludeOperation 	TRUE
+				location   	(288, 1040)
+				label      	(object ItemLabel
+				    Parent_View 	@2
+				    location   	(81, 947)
+				    nlines     	1
+				    max_width  	414
+				    justify    	0
+				    label      	"PolynomialInterpolator")
+				icon_style 	"Icon"
+				quidu      	"38CDAC72003E"
+				compartment 	(object Compartment
+				    Parent_View 	@2
+				    location   	(81, 1001)
+				    icon_style 	"Icon"
+				    anchor     	2
+				    nlines     	3
+				    max_width  	369)
+				width      	432
+				height     	208
+				annotation 	8
+				autoResize 	TRUE)
+			    (object InheritView "" @3
+				stereotype 	TRUE
+				quidu      	"38CDAC72007A"
+				client     	@2
+				supplier   	@1
+				line_style 	0)))))
+	    (object Class_Category "Internal Systems"
+		attributes 	(list Attribute_Set
+		    (object Attribute
+			tool       	"VisualBasic"
+			name       	"TierPackage"
+			value      	"Business Services"))
+		quid       	"38CD9B6A0181"
+		documentation 	"These objects represent the back-end of the library.  They allow the objects in the User Interface group to communicate with each other.  They also communicate errors to the user. "
+		visible_categories 	(list visibility_relationship_list
+		    (object Visibility_Relationship
+			attributes 	(list Attribute_Set
+			    (object Attribute
+				tool       	"VisualBasic"
+				name       	"TierPackage"
+				value      	"User Services"))
+			quid       	"38CD9B6A0187"
+			supplier   	"Logical View::User Interface"
+			quidu      	"38CD9B6A017F")
+		    (object Visibility_Relationship
+			attributes 	(list Attribute_Set
+			    (object Attribute
+				tool       	"VisualBasic"
+				name       	"TierPackage"
+				value      	"Data Services"))
+			quid       	"38CD9B6A0188"
+			supplier   	"Logical View::Data Services"
+			quidu      	"38CD9B6A0183"))
+		exportControl 	"Public"
+		logical_models 	(list unit_reference_list
+		    (object Class "MathException"
+			quid       	"38CD9B9F00D1"
+			documentation 	"This class is the exception wrapper for the math library.  It allows for an easy mechanism for error checking."
+			operations 	(list Operations
+			    (object Operation "MathException"
+				quid       	"38CD9C4E012D"
+				documentation 	"Default constructor.  Sets the internal exception level to UNKNOWN_MATH_ERROR"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "MathException"
+				quid       	"38CD9CF100A5"
+				documentation 	"Constructor allowing the user to set the internal exception"
+				parameters 	(list Parameters
+				    (object Parameter "inexception"
+					type       	"const long int&"))
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "getException"
+				quid       	"38CD9DE30356"
+				documentation 	"Returns the objects internal exception number."
+				result     	"Integer"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "setException"
+				quid       	"38CD9E1C00D7"
+				parameters 	(list Parameters
+				    (object Parameter "inexception"
+					type       	"int"))
+				result     	"void"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "getString"
+				quid       	"38CD9E49026D"
+				documentation 	"Returns a string version of the internal exception."
+				result     	"std::string"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0))
+			class_attributes 	(list class_attribute_list
+			    (object ClassAttribute "_exception"
+				quid       	"38CDA25003C4"
+				type       	"int"
+				exportControl 	"Protected"))))
+		logical_presentations 	(list unit_reference_list
+		    (object ClassDiagram "Package Overview"
+			quid       	"38CD9B6A0182"
+			title      	"Package Overview"
+			zoom       	100
+			max_height 	28350
+			max_width  	21600
+			origin_x   	0
+			origin_y   	0
+			items      	(list diagram_item_list
+			    (object ClassView "Class" "Logical View::Internal Systems::MathException" @4
+				ShowCompartmentStereotypes 	TRUE
+				IncludeAttribute 	TRUE
+				IncludeOperation 	TRUE
+				location   	(272, 128)
+				label      	(object ItemLabel
+				    Parent_View 	@4
+				    location   	(131, 83)
+				    nlines     	1
+				    max_width  	282
+				    justify    	0
+				    label      	"MathException")
+				icon_style 	"Icon"
+				quidu      	"38CD9B9F00D1"
+				width      	300
+				height     	112
+				annotation 	8
+				autoResize 	TRUE)))))
+	    (object Class_Category "Data Services"
+		attributes 	(list Attribute_Set
+		    (object Attribute
+			tool       	"VisualBasic"
+			name       	"TierPackage"
+			value      	"Data Services"))
+		quid       	"38CD9B6A0183"
+		documentation 	"Data services maintain, access, and update data. They also manage and satisfy requests to manipulate data that are initiated by business services. Separating data services allows the data structure and access mechanisms to be maintained, modified, or, if necessary, even re-architected without affecting business or user services."
+		visible_categories 	(list visibility_relationship_list
+		    (object Visibility_Relationship
+			attributes 	(list Attribute_Set
+			    (object Attribute
+				tool       	"VisualBasic"
+				name       	"TierPackage"
+				value      	"User Services"))
+			quid       	"38CD9B6A0189"
+			supplier   	"Logical View::User Interface"
+			quidu      	"38CD9B6A017F")
+		    (object Visibility_Relationship
+			attributes 	(list Attribute_Set
+			    (object Attribute
+				tool       	"VisualBasic"
+				name       	"TierPackage"
+				value      	"Data Services"))
+			quid       	"38CD9B6A018A"
+			supplier   	"Logical View::Internal Systems"
+			quidu      	"38CD9B6A0181"))
+		exportControl 	"Public"
+		logical_models 	(list unit_reference_list)
+		logical_presentations 	(list unit_reference_list
+		    (object ClassDiagram "Package Overview"
+			quid       	"38CD9B6A0184"
+			title      	"Package Overview"
+			zoom       	100
+			max_height 	28350
+			max_width  	21600
+			origin_x   	0
+			origin_y   	0
+			items      	(list diagram_item_list)))))
+	logical_presentations 	(list unit_reference_list
+	    (object Tier_Diagram "Three-Tiered Service Model"
+		quid       	"38CD9B6A018B"
+		title      	"Three-Tiered Service Model"
+		documentation 	"A three-tiered architectural approach separates the various components of a client/server system into three tiers of services. The user services, business and other middle tier services, and data services are the logical tiers that collaborate in an application"
+		zoom       	100
+		max_height 	28350
+		max_width  	21600
+		origin_x   	0
+		origin_y   	0
+		items      	(list diagram_item_list
+		    (object TierView "User Interface" @5
+			label      	(object ItemLabel
+			    Parent_View 	@5
+			    location   	(6, 6)
+			    nlines     	2
+			    max_width  	-12
+			    justify    	0
+			    label      	"User Interface")
+			icon_style 	"Icon"
+			hidden     	TRUE
+			quidu      	"38CD9B6A017F"
+			width      	300
+			height     	180)
+		    (object TierView "Internal Systems" @6
+			location   	(600, 0)
+			label      	(object ItemLabel
+			    Parent_View 	@6
+			    location   	(606, 6)
+			    nlines     	2
+			    max_width  	-12
+			    justify    	0
+			    label      	"Internal Systems")
+			icon_style 	"Icon"
+			hidden     	TRUE
+			quidu      	"38CD9B6A0181"
+			width      	300
+			height     	180)
+		    (object TierView "Data Services" @7
+			location   	(1200, 0)
+			label      	(object ItemLabel
+			    Parent_View 	@7
+			    location   	(1206, 6)
+			    nlines     	2
+			    max_width  	-12
+			    justify    	0
+			    label      	"Data Services")
+			icon_style 	"Icon"
+			hidden     	TRUE
+			quidu      	"38CD9B6A0183"
+			width      	300
+			height     	180)
+		    (object ClassView "Class" "Logical View::Internal Systems::MathException" @8
+			ShowCompartmentStereotypes 	TRUE
+			IncludeAttribute 	TRUE
+			IncludeOperation 	TRUE
+			location   	(912, 256)
+			label      	(object ItemLabel
+			    Parent_View 	@8
+			    location   	(743, 75)
+			    nlines     	1
+			    max_width  	338
+			    justify    	0
+			    label      	"MathException")
+			icon_style 	"Icon"
+			quidu      	"38CD9B9F00D1"
+			compartment 	(object Compartment
+			    Parent_View 	@8
+			    location   	(743, 129)
+			    icon_style 	"Icon"
+			    anchor     	2
+			    nlines     	7
+			    max_width  	309)
+			width      	356
+			height     	384
+			annotation 	8
+			autoResize 	TRUE)
+		    (object ClassView "Class" "Logical View::User Interface::Interpolator" @9
+			ShowCompartmentStereotypes 	TRUE
+			IncludeAttribute 	TRUE
+			IncludeOperation 	TRUE
+			location   	(272, 384)
+			label      	(object ItemLabel
+			    Parent_View 	@9
+			    location   	(66, 26)
+			    nlines     	1
+			    max_width  	412
+			    justify    	0
+			    label      	"Interpolator")
+			icon_style 	"Icon"
+			quidu      	"38CDA8AC00F3"
+			compartment 	(object Compartment
+			    Parent_View 	@9
+			    location   	(66, 80)
+			    icon_style 	"Icon"
+			    anchor     	2
+			    nlines     	15
+			    max_width  	409)
+			width      	430
+			height     	738
+			annotation 	8
+			autoResize 	TRUE)
+		    (object ClassView "Class" "Logical View::User Interface::PolynomialInterpolator" @10
+			ShowCompartmentStereotypes 	TRUE
+			IncludeAttribute 	TRUE
+			IncludeOperation 	TRUE
+			location   	(272, 1024)
+			label      	(object ItemLabel
+			    Parent_View 	@10
+			    location   	(69, 930)
+			    nlines     	1
+			    max_width  	406
+			    justify    	0
+			    label      	"PolynomialInterpolator")
+			icon_style 	"Icon"
+			quidu      	"38CDAC72003E"
+			compartment 	(object Compartment
+			    Parent_View 	@10
+			    location   	(69, 984)
+			    icon_style 	"Icon"
+			    anchor     	2
+			    nlines     	3
+			    max_width  	369)
+			width      	424
+			height     	210
+			annotation 	8
+			autoResize 	TRUE)
+		    (object InheritView "" @11
+			stereotype 	TRUE
+			quidu      	"38CDAC72007A"
+			client     	@10
+			supplier   	@9
+			line_style 	0)))))
+    root_subsystem 	(object SubSystem "Component View"
+	quid       	"38CD9B680035"
+	physical_models 	(list unit_reference_list)
+	physical_presentations 	(list unit_reference_list
+	    (object Module_Diagram "Main"
+		quid       	"38CD9B6A0161"
+		title      	"Main"
+		zoom       	100
+		max_height 	28350
+		max_width  	21600
+		origin_x   	0
+		origin_y   	0
+		items      	(list diagram_item_list))))
+    process_structure 	(object Processes
+	quid       	"38CD9B680036"
+	ProcsNDevs 	(list
+	    (object Process_Diagram "Deployment View"
+		quid       	"38CD9B68003C"
+		title      	"Deployment View"
+		zoom       	100
+		max_height 	28350
+		max_width  	21600
+		origin_x   	0
+		origin_y   	0
+		items      	(list diagram_item_list))))
+    properties 	(object Properties
+	attributes 	(list Attribute_Set
+	    (object Attribute
+		tool       	"Repository"
+		name       	"HiddenTool"
+		value      	FALSE)
+	    (object Attribute
+		tool       	"SourceSafe"
+		name       	"HiddenTool"
+		value      	FALSE)
+	    (object Attribute
+		tool       	"TypeLibImporter"
+		name       	"HiddenTool"
+		value      	FALSE)
+	    (object Attribute
+		tool       	"VC++"
+		name       	"propertyId"
+		value      	"809135966")
+	    (object Attribute
+		tool       	"VC++"
+		name       	"default__Class"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"VC++"
+			name       	"Generate"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"VC++"
+			name       	"HeaderFile"
+			value      	"AUTO GENERATE")))
+	    (object Attribute
+		tool       	"VC++"
+		name       	"default__Operation"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"VC++"
+			name       	"OperationIsConst"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"VC++"
+			name       	"OperationKindSet"
+			value      	(list Attribute_Set
+			    (object Attribute
+				tool       	"VC++"
+				name       	"Non-virtual"
+				value      	200)
+			    (object Attribute
+				tool       	"VC++"
+				name       	"Abstract"
+				value      	201)
+			    (object Attribute
+				tool       	"VC++"
+				name       	"Virtual"
+				value      	202)))
+		    (object Attribute
+			tool       	"VC++"
+			name       	"OperationKind"
+			value      	("OperationKindSet" 200))))
+	    (object Attribute
+		tool       	"VC++"
+		name       	"HiddenTool"
+		value      	FALSE)
+	    (object Attribute
+		tool       	"VJ++"
+		name       	"HiddenTool"
+		value      	FALSE)
+	    (object Attribute
+		tool       	"Visual Basic"
+		name       	"propertyId"
+		value      	"783606378")
+	    (object Attribute
+		tool       	"Visual Basic"
+		name       	"default__Class"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"Visual Basic"
+			name       	"CreatableSet"
+			value      	(list Attribute_Set
+			    (object Attribute
+				tool       	"Visual Basic"
+				name       	"Private"
+				value      	221)
+			    (object Attribute
+				tool       	"Visual Basic"
+				name       	"PublicNotCreatable"
+				value      	213)
+			    (object Attribute
+				tool       	"Visual Basic"
+				name       	"SingleUse"
+				value      	214)
+			    (object Attribute
+				tool       	"Visual Basic"
+				name       	"GlobalSingleUse"
+				value      	215)
+			    (object Attribute
+				tool       	"Visual Basic"
+				name       	"MultiUse"
+				value      	219)
+			    (object Attribute
+				tool       	"Visual Basic"
+				name       	"GlobalMultiUse"
+				value      	220)))
+		    (object Attribute
+			tool       	"Visual Basic"
+			name       	"OptionBase"
+			value      	"0")
+		    (object Attribute
+			tool       	"Visual Basic"
+			name       	"OptionExplicit"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"Visual Basic"
+			name       	"OptionCompare"
+			value      	("CompareSet" 202))
+		    (object Attribute
+			tool       	"Visual Basic"
+			name       	"Creatable"
+			value      	("CreatableSet" 221))
+		    (object Attribute
+			tool       	"Visual Basic"
+			name       	"GenerateInitialization"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Visual Basic"
+			name       	"GenerateTermination"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Visual Basic"
+			name       	"CollectionClass"
+			value      	"Collection")
+		    (object Attribute
+			tool       	"Visual Basic"
+			name       	"CompareSet"
+			value      	(list Attribute_Set
+			    (object Attribute
+				tool       	"Visual Basic"
+				name       	"None"
+				value      	202)
+			    (object Attribute
+				tool       	"Visual Basic"
+				name       	"Binary"
+				value      	203)
+			    (object Attribute
+				tool       	"Visual Basic"
+				name       	"Text"
+				value      	204)))))
+	    (object Attribute
+		tool       	"Visual Basic"
+		name       	"default__Operation"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"Visual Basic"
+			name       	"OperationName"
+			value      	"$operation")
+		    (object Attribute
+			tool       	"Visual Basic"
+			name       	"LibraryName"
+			value      	"")
+		    (object Attribute
+			tool       	"Visual Basic"
+			name       	"AliasName"
+			value      	"")
+		    (object Attribute
+			tool       	"Visual Basic"
+			name       	"IsStatic"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Visual Basic"
+			name       	"EntryCode"
+			value      	(value Text ""))
+		    (object Attribute
+			tool       	"Visual Basic"
+			name       	"ExitCode"
+			value      	(value Text ""))))
+	    (object Attribute
+		tool       	"Visual Basic"
+		name       	"default__Attribute"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"Visual Basic"
+			name       	"IsConst"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Visual Basic"
+			name       	"New"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Visual Basic"
+			name       	"WithEvents"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Visual Basic"
+			name       	"Subscript"
+			value      	"")
+		    (object Attribute
+			tool       	"Visual Basic"
+			name       	"NameIfUnlabeled"
+			value      	"the$supplier")
+		    (object Attribute
+			tool       	"Visual Basic"
+			name       	"GenerateDataMember"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"Visual Basic"
+			name       	"DataMemberName"
+			value      	"$relationship")
+		    (object Attribute
+			tool       	"Visual Basic"
+			name       	"GenerateGetOperation"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Visual Basic"
+			name       	"GenerateSetOperation"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Visual Basic"
+			name       	"GenerateLetOperation"
+			value      	FALSE)))
+	    (object Attribute
+		tool       	"Visual Basic"
+		name       	"default__Role"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"Visual Basic"
+			name       	"New"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Visual Basic"
+			name       	"WithEvents"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Visual Basic"
+			name       	"Subscript"
+			value      	"")
+		    (object Attribute
+			tool       	"Visual Basic"
+			name       	"NameIfUnlabeled"
+			value      	"the$supplier")
+		    (object Attribute
+			tool       	"Visual Basic"
+			name       	"GenerateDataMember"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"Visual Basic"
+			name       	"DataMemberName"
+			value      	"$relationship")
+		    (object Attribute
+			tool       	"Visual Basic"
+			name       	"GenerateGetOperation"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Visual Basic"
+			name       	"GenerateSetOperation"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Visual Basic"
+			name       	"GenerateLetOperation"
+			value      	FALSE)))
+	    (object Attribute
+		tool       	"Visual Basic"
+		name       	"default__Inherit"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"Visual Basic"
+			name       	"ImplementsDelegation"
+			value      	TRUE)))
+	    (object Attribute
+		tool       	"Visual Basic"
+		name       	"default__Module-Spec"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"Visual Basic"
+			name       	"ProjectFile"
+			value      	"")))
+	    (object Attribute
+		tool       	"Visual Basic"
+		name       	"HiddenTool"
+		value      	FALSE)
+	    (object Attribute
+		tool       	"VisualStudio"
+		name       	"HiddenTool"
+		value      	FALSE))
+	quid       	"38CD9B680037"))

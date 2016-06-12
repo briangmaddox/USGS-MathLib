@@ -1,0 +1,93 @@
+# Generated automatically from Makefile.in by configure.
+# Generated automatically from Makefile.in by configure.
+SHELL		=	/bin/sh
+
+prefix		=	D:\\Chris
+exec_prefix	=	${prefix}
+host_os		=	cygwin32
+srcdir		=	.
+top_srcdir	=	.
+enable_debug	=	no
+
+# Where to find includes for libraries that MathLib depends on.
+INCPATHS = -I$(prefix)\\include -I$(prefix)\\include\\tnt\\0.9.3
+
+# Where to install MathLib's include files.
+INCDEST = $(prefix)\\include\\MathLib
+
+# Where to install MathLib's library.
+LIBDEST = $(prefix)\\lib\\bcc
+
+ifeq ($(enable_debug),yes)
+DEBUG= -v
+else
+DEBUG= -O2 -w- -WC -6
+endif
+
+CC= bcc32 
+CXX= bcc32
+CXXFLAGS= $(DEBUG) $(INCPATHS)
+RANLIB=ranlib
+
+SRCS=	RandomParkMiller.cpp			\
+	RandomParkMillerBD.cpp			\
+	RandomLEcuyerBD.cpp			\
+	RandomKnuth.cpp				\
+	Interpolator.cpp			\
+	PolynomialInterpolator.cpp		\
+	RationalInterpolator.cpp		\
+	MathException.cpp			\
+	CubicSplineInterpolator.cpp		\
+	LinearLeastSquaresInterpolator.cpp 	\
+	BiPolynomialInterpolator.cpp       	\
+	LeastSquaresPlaneInterpolator.cpp  	\
+	DlgViewerInterpolator.cpp               \
+	BiLinearInterpolator.cpp                \
+	BiCubicInterpolator.cpp                 \
+        BiCubicSplineInterpolator.cpp
+
+
+OBJS=$(SRCS:.cpp=.obj)
+
+.SUFFIXES: .obj .cpp
+
+# Suffix rules
+.cpp.obj:
+	$(CXX) $(CXXFLAGS) -c $<
+
+all: libMathLib.lib
+	@@echo "libMathLib.lib successfully built."
+
+libMathLib.lib: $(OBJS)
+	 tlib libMathLib.lib /a $(OBJS)
+
+install: libMathLib.lib
+	$(top_srcdir)/config/mkinstalldirs $(INCDEST)
+	$(top_srcdir)/config/mkinstalldirs $(LIBDEST)
+	cp *.h $(INCDEST)
+	cp libMathLib.lib $(LIBDEST)
+
+clean::
+	rm -f libMathLib.lib core *~ $(OBJS)
+
+distclean: clean
+	rm -f Makefile config.h config.status config.cache config.log
+
+uninstall:
+	rm -rf $(INCDEST)
+	rm -f $(LIBDEST)/libMathLib.lib
+
+# Automatically rerun configure if the .in files have changed
+$(srcdir)/configure:	configure.in
+	cd $(srcdir) && autoconf
+
+$(srcdir)/stamp-h:  config.status
+	./config.status
+
+$(srcdir)/Makefile: Makefile.in config.status
+	./config.status
+
+$(srcdir)/config.status: configure
+	./config.status --recheck
+
+
